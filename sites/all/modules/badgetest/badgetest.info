@@ -1,0 +1,9 @@
+name = BadgeTest
+description = badges
+core = 7.x
+package = Features
+dependencies[] = badges
+dependencies[] = ctools
+features[badge][] = testbadge
+features[ctools][] = badges:badges:1
+features[features_api][] = api:2

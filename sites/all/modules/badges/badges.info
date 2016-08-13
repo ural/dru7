@@ -1,0 +1,4 @@
+name = Badges
+description = Assign badges to users.
+core = 7.x
+dependencies[] = ctools

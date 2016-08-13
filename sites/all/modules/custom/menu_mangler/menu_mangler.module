@@ -1,0 +1,31 @@
+<?php
+/*
+ * Implements hook_page_alter()
+ */
+function menu_mangler_page_alter(&$page) {
+  if(arg(0) == 'magic') {
+    //dsm($page);
+    $page['content']['system_main']['renderable_element']['#type'] = 'ol';
+    /*unset($page['content']['system_main']['themed_data']['#attached']['css'][0]);*/
+  }
+}
+
+/*function menu_mangler_block_info_alter(&$blocks, $theme, $code_blocks) {
+  dpm($blocks);
+}*/
+
+/*function menu_mangler_block_view_alter(&$data, $block) {
+
+//dpm($block);
+    kpr($data);
+
+// Remove the contextual links on all blocks that provide them.
+  if (is_array($data['content']) && isset($data['content']['#contextual_links'])) {
+    unset($data['content']['#contextual_links']);
+  }
+  // Add a theme wrapper function defined by the current module to all blocks
+  // provided by the "somemodule" module.
+  if (is_array($data['content']) && $block->module == 'somemodule') {
+    $data['content']['#theme_wrappers'][] = 'mymodule_special_block';
+  }
+}*/

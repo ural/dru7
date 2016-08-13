@@ -1,0 +1,101 @@
+<?php
+/**
+ * @file
+ * Badges module.
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function badges_ctools_plugin_directory($module, $plugin) {
+  // Support for CTools exportables.
+  if ($plugin == 'export_ui') {
+    // Location of the ctools plugin files relative to the module's root
+    // directory.
+    return 'plugins/export_ui';
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function badges_form_user_profile_form_alter(&$form, &$form_state) {
+  $account = $form['#user'];
+
+  // Get a list of all defined badges for use a checkbox options.
+  $badges = badges_load_badges();
+  $badge_options = array();
+  foreach ($badges as $badge) {
+    $badge_options[$badge->name] = $badge->text;
+  }
+
+  $form['badges_fieldset'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Badges'),
+  );
+  $form['badges_fieldset']['badges'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t("User's badges"),
+    '#options' => $badge_options,
+    '#default_value' => isset($account->badges) ? array_keys($account->badges) : array(),
+  );
+}
+
+/**
+ * Load all badges.
+ */
+function badges_load_badges() {
+  ctools_include('export');
+  $result = ctools_export_load_object('badge', 'all');
+  return $result;
+}
+
+/**
+ * Implements hook_user_update().
+ */
+function badges_user_update(&$edit, $account, $category) {
+  if (isset($edit['badges'])) {
+    // Delete all existing badges.
+    db_delete('badge_user')
+      ->condition('uid', $account->uid)
+      ->execute();
+    // Save new badges.
+    $query = db_insert('badge_user')->fields(array('badge', 'uid'));
+    foreach ($edit['badges'] as $badge => $value) {
+      if ($value !== 0) {
+        $query->values(array('badge' => $badge, 'uid' => $account->uid));
+      }
+    }
+    $query->execute();
+  }
+}
+
+/**
+ * Implements hook_user_load().
+ */
+function badges_user_load($users) {
+  $result = db_query('SELECT * FROM {badge_user} WHERE uid IN (:uids)', array(':uids' => array_keys($users)));
+  $badges = badges_load_badges();
+
+  foreach ($result as $record) {
+    $users[$record->uid]->badges[$record->badge] = $badges[$record->badge];
+  }
+}
+
+/**
+ * Implements hook_user_view().
+ */
+function badges_user_view($account, $view_mode, $langcode) {
+  foreach ($account->badges as $badge) {
+    $account->content['badges'][$badge->name] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="badge" style="background-color: #' . check_plain($badge->color) . '">' . check_plain($badge->text) . '</div>',
+    );
+  }
+}
+
+
+
+
+
+

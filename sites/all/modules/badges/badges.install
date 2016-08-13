@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function badges_schema() {
+  $schema = array();
+  $schema['badge'] = array(
+    'description' => 'Badges that can be assigned to a user.',
+    'fields' => array(
+      'bid' => array(
+        'description' => 'Unique serial ID for the badge.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        // Tells CTools that this field should NOT be exported to code.
+        'no export' => TRUE,
+      ),
+      'name' => array(
+        'description' => 'Unique machine readable name of the badge.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'text' => array(
+        'description' => 'Text to display for the badge.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'color' => array(
+        'description' => 'Color to use when displaying the badge.',
+        'type' => 'varchar',
+        'length' => 6,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('bid'),
+    // Additional schema data for ctools exportables.
+    'export' => array(
+      'key' => 'name',
+      'key name' => 'Badge Name',
+      'primary key' => 'bid',
+      'default hook' => 'badges_info',
+      'api' => array(
+        'owner' => 'badges',
+        'api' => 'badges',
+        'minimum_version' => 1,
+        'current_version' => 1,
+      ),
+    ),
+  );
+
+  $schema['badge_user'] = array(
+    'description' => 'Map badges to users.',
+    'fields' => array(
+      'badge' => array(
+        'description' => 'Unique machine readable name of the badge.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'User id from {user}.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+  );
+  return $schema;
+}

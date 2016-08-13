@@ -1,0 +1,240 @@
+<?php
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_field_info().
+ */
+function rgb_field_info() {
+  return array(
+    'rgb_color' => array(
+      'label' => t('Color'),
+      'description' => t('This field stores an RGB color and label in the database.'),
+      'default_widget' => 'rgb_textfield',
+      'default_formatter' => 'rgb_raw',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function rgb_field_widget_info() {
+  return array(
+    'rgb_textfield' => array(
+      'label' => t('RGB Textfields'),
+      'field types' => array('rgb_color'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function rgb_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+
+  if ($field['cardinality'] == 1) {
+    $element['#type'] = 'fieldset';
+  }
+
+  $element['rgb'] = array(
+    '#type' => 'textfield',
+    '#field_prefix' => t('RGB: #'),
+    '#size' => 6,
+    '#default_value' => isset($items[$delta]['rgb']) ? $items[$delta]['rgb'] : '',
+  );
+
+  if (isset($instance['widget']['settings']['rgb_label_text'])) {
+    $label = t('@label:', array('@label' => $instance['widget']['settings']['rgb_label_text']));
+  }
+  else {
+    $label = t('Color:');
+  }
+
+  $element['label'] = array(
+    '#type' => 'textfield',
+    '#field_prefix' => $label,
+    '#default_value' => isset($items[$delta]['label']) ? $items[$delta]['label'] : '',
+  );
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_settings_form().
+ */
+function rgb_field_widget_settings_form($field, $instance) {
+  $element = array(
+    'rgb_label_text' => array(
+      '#type' => 'textfield',
+      '#title' => t('Alternate label text'),
+      '#description' => t('If an alternate label text is provided it will be used in place of the default "Color" title for the label field.'),
+      '#default_value' => isset($instance['widget']['settings']['rgb_label_text']) ? $instance['widget']['settings']['rgb_label_text'] : '',
+    ),
+  );
+
+  return $element;
+}
+
+/**
+ * Implementation of hook_field_is_empty().
+ */
+function rgb_field_is_empty($item, $field) {
+  if (empty($item['rgb']) || empty($item['label'])) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_field_validate().
+ */
+function rgb_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+  foreach($items as $delta => $item) {
+    if (!empty($item['rgb'])) {
+      // Make sure it's 6 characters.
+      /*if (drupal_strlen($item['rgb']) !== 6) {*/
+      if (drupal_strlen($item['rgb']) > 6) {
+        $errors[$field['field_name']][$langcode][$delta][] = array(
+          'error' => 'rgb_length',
+          'message' => t('%name: the hex color must be 6 characters.', array('%name' => $instance['label'])),
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function rgb_field_formatter_info() {
+  return array(
+    'rgb_raw' => array(
+      'label' => t('Raw color value'),
+      'field types' => array('rgb_color'),
+    ),
+    'rgb_box' => array(
+      'label' => t('Color block with label'),
+      'field types' => array('rgb_color'),
+      'settings' => array(
+        'width' => 25,
+        'height' => 25,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function rgb_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, &$items, $display) {
+  $settings = $display['settings'];
+  $element = array();
+
+  switch ($display['type']) {
+    case 'rgb_raw':
+      foreach ($items as $key => $value) {
+        $element[$key] = array(
+          '#type' => 'markup',
+          '#markup' => t('#@hex', array('@hex' => $value['rgb'])),
+        );
+      }
+      break;
+
+    case 'rgb_box':
+      foreach ($items as $key => $value) {
+
+        $element[$key]['links'] = array(
+          '#theme' => 'item_list',
+          '#items' => $value['google_links'],
+        );
+
+
+        $element[$key]['box'] = array(
+          '#type' => 'markup',
+          '#markup' => '<div style="background: #' . check_plain($value['rgb']) . ';
+              width: '. check_plain($settings['width']) .'px;
+              height: '. check_plain($settings['height']) .'px;">' . check_plain($value['label']) . ' Width = ' . check_plain($settings['width']) . '</div>',
+
+        );
+      }
+      break;
+  }
+
+ return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function rgb_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $instance['display'][$view_mode]['settings'];
+
+  if ($display['type'] == 'rgb_box') {
+    $output = t('Box size: @widthx@height', array('@width' => $settings['width'], '@height' => $settings['height']));
+    return $output;
+  }
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function rgb_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $element = array();
+  if ($display['type'] == 'rgb_box') {
+      $element['width'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Box width'),
+        '#default_value' => $settings['width'],
+      );
+      $element['height'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Box height'),
+        '#default_value' => $settings['height'],
+      );
+  }
+  
+  return $element;
+}
+
+/**
+ * Implements hook_field_load().
+ */
+function rgb_field_load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
+ // dsm('rgb_field_load');
+  foreach ($items as $entity_id => $field_values) {
+    foreach ($field_values as $delta => $value) {
+      $url = 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=' . $value['rgb'];
+      $response = drupal_http_request($url);
+      if ($response->code == 200) {
+
+        $data = drupal_json_decode($response->data);
+        $links = array();
+        foreach ($data['responseData']['results'] as $result) {
+          $links[] = l($result['titleNoFormatting'], $result['url']);
+        }
+
+        $items[$entity_id][$delta]['google_links'] = $links;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

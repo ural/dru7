@@ -1,0 +1,31 @@
+<?php
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_field_schema().
+ */
+function rgb_field_schema($field) {
+  $columns = array(
+    'rgb' => array(
+      'type' => 'varchar',
+      'length' => 6,
+      'not null' => FALSE,
+    ),
+    'label' => array(
+      'type' => 'varchar',
+      'length' => 128,
+      'not null' => FALSE,
+    ),
+  );
+
+  $indexes = array(
+    'rgb' => array('rgb'),
+  );
+
+  return array(
+    'columns' => $columns,
+    'indexes' => $indexes,
+  );
+}
