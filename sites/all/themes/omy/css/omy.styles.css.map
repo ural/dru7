@@ -1,0 +1,1 @@
+{"version":3,"sources":["variables/variables.scss"],"names":[],"mappings":"AAEA;EACE,kCAF0B;EAG1B,gBAAe,EAChB","file":"omy.styles.css","sourcesContent":["// FONT FAMILY\n$font : 'Roboto', sans-serif;\nhtml {\n  font-family: $font;\n  font-size:100%;\n}"],"sourceRoot":"/source/"}
