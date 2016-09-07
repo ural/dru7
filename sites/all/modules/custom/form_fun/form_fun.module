@@ -1,0 +1,15 @@
+<?php
+
+function form_fun_menu() {
+  $items = array();
+  $items['admin/form-fun'] = array(
+    'title' => 'Form Fun',
+    'page callback' => 'form_fun_page',
+    'access arguments' => array('access content'),
+    'file' => 'form_fun.cake.inc',
+    //'type' => MENU_SUGGESTED_ITEM,
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
