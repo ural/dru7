@@ -1,0 +1,4 @@
+name = demo_list
+description = SQL example with node list query
+core = 7.x
+package = demo

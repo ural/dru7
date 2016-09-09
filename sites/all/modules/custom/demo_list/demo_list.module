@@ -1,0 +1,78 @@
+<?php
+
+/*
+ * Implements hook_menu().
+ */
+function demo_list_menu() {
+  $items = array();
+
+  $items['admin/form-fun/demo-list'] = array(
+    'title' => 'List of Nodes',
+    'description' => t('A list of nodes with published status.'),
+    'page callback' => 'demo_list_node_list',
+    'access arguments' => array('administer content'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 25,
+  );
+
+  return $items;
+}
+
+/*
+ * Custom page callback for admin/content/node-list
+ */
+function demo_list_node_list() {
+
+// define variants
+  $node_types = node_type_get_types();
+//krumo($node_types);
+
+
+  $stati = array(0, 1);
+// loop through variants
+  foreach ($node_types as $type) {
+    $typename = $type->name;
+    dpm($typename);
+
+      foreach ($stati as $status) {
+        //dpm($status);
+        // SELECT COUNT FROM node WHERE type = $typename AND status = $status
+
+        $query = db_select('node', 'n')
+          ->condition('type', $typename)
+          ->condition('status', $status);
+
+        $query->addExpression('COUNT (nid)', 'node_count');
+        $results = $query->execute();
+        $data = $results->fetchObject();
+
+        //dpm($data);
+
+        // assign vars for printing
+        if($status == 0) {
+          $status = 'unpublished';
+        } else {
+          $status = 'published';
+        }
+
+       $items[] = t('The %type content type has %num %status nodes.', array(
+          '%type'=>$typename, '%num'=>$data->node_count, '%status'=>$status
+        ));
+
+
+      } // end status loop
+
+  } // end node type loop
+
+// krumo($items);
+
+  $content['demo_list_node_list'] = array(
+    '#items' => $items,
+    '#theme' => 'item_list',
+  );
+
+  return render($content);
+
+
+}
+

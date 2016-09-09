@@ -1,0 +1,4 @@
+name = demo
+description = A little test module to demo FAPI
+core = 7.x
+package = demo
