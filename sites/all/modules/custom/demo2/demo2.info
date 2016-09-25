@@ -1,0 +1,4 @@
+name = Demo 2
+description = Just a Schema Demo module.
+core = 7.x
+package = demo
