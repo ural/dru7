@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Implmentation of hook_theme().
  */
@@ -51,6 +52,19 @@ function ninesixtyrobots_preprocess_node(&$vars) {
 
   // Change the theme function used for rendering the list of tags.
   $vars['content']['field_tags']['#theme'] = 'links';
+
+  //dpm($vars['node']);
+
+  // DINAMIC TEMPLATES WITH theme_hook_suggerstions
+  if($vars["type"] == "page") {
+  $today = strtolower(date('l'));
+    $vars['theme_hook_suggestions'][] = 'node__' . $today;
+    $vars['day_of_the_week'] = $today;
+
+    //dpm($vars);
+
+  }
+
 }
 
 /**
@@ -70,6 +84,7 @@ function ninesixtyrobots_preprocess_page(&$vars) {
       $query = drupal_encode_path($query);
 
       $response = drupal_http_request('http://search.twitter.com/search.json?q=' . $query);
+
       if ($response->code == 200) {
         $data = json_decode($response->data);
         // Set a 5 minute cache on retrieving tweets.
@@ -84,6 +99,41 @@ function ninesixtyrobots_preprocess_page(&$vars) {
       $vars['site_slogan'] = check_plain(html_entity_decode($tweet->text));
     }
   }
+
+  // PLAYING WITH SLOGAN
+  $slogans = array(
+    t("WOWSER"),
+    t("SUP SUP"),
+    t("ANOTHER SLOGAN"),
+    t("OPS DOPS"),
+    t("SLOOOOOOOOOOGAAAAAAAAAAAN"),
+  );
+ $slogan = $slogans[array_rand($slogans)];
+
+  // ADD NEW VARIABLE
+
+  if($vars['logged_in']) {
+
+    $vars['site_slogan'] = t($slogan . "  what's happening @username ", array('@username' => strtoupper($vars['user']->name)));
+
+    $vars['footer_message'] = t("WHO, WHO LOVES YOU @usermail", array('@usermail' => strtoupper($vars['user']->mail) ));
+
+   /* dpm($vars);*/
+  } else {
+
+    $vars['site_slogan'] = $slogan;
+
+    $vars['footer_message'] = t("YOU ARE LOGGED OUT! ");
+  }
+// ADDING CUSTOM CSS & JS
+if($vars['is_front'] == TRUE) {
+  drupal_add_css(path_to_theme() . '/css/front.css', array('group' => CSS_THEME));
+
+  drupal_add_js(path_to_theme() . '/js/custom.js', array('group' => JS_THEME));
+}
+
+//dpm($vars);
+
 }
 
 /**
@@ -115,6 +165,7 @@ function ninesixtyrobots_preprocess_username(&$variables) {
   if (isset($account->field_real_name[LANGUAGE_NONE][0]['safe_value'])) {
     $variables['name'] = $account->field_real_name[LANGUAGE_NONE][0]['safe_value'];
   }
+
 }
 
 /**

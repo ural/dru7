@@ -77,6 +77,9 @@
     <!-- footer starts here -->
     <div id="footer-wrapper" class="container_16">
 
+       <!--PLAYING WITH VARIABLES-->
+      <div id="foot-message"><?php print $footer_message; ?></div>
+
       <!-- footer top starts here -->
       <div id="footer-content">
 
