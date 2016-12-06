@@ -6,9 +6,4 @@ sites/*/files
 sites/*/private
 
 .idea
-.idea/*
 .idea/workspace.xml
-
-# Omy theme gulp files and SASS cache
-sites/all/themes/omy/.sass-cache
-sites/all/themes/omy/node_modules

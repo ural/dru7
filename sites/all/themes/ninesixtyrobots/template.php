@@ -4,13 +4,40 @@
  * Implmentation of hook_theme().
  */
 function ninesixtyrobots_theme() {
+
+
+  // Add our own function to override the default comment form.
   return array(
+    'comment_form' => array(
+      'render element' => 'form',
+    ),
     // Add our own function to override the default node form for story.
     'article_node_form' => array(
       'render element' => 'form',
     ),
   );
+
 }
+
+/**
+ * @param  $variables
+ *  Commnets Form author, Subject and Format fields
+ */
+function ninesixtyrobots_comment_form($variables) {
+//dsm($variables);
+
+  $author = '<div class="grid_5 alpha">' . drupal_render($variables['form']['author']) . '</div>';
+  $subject = '<div class="grid_5 alpha">' . drupal_render($variables['form']['subject']) . '</div>';
+  // hide text format field
+  hide($variables['form']['comment_body']['und'][0]['format']);
+
+  $everything_else = drupal_render_children($variables['form']);
+
+  return $author . $subject . $everything_else;
+
+
+}
+
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -51,7 +78,7 @@ function ninesixtyrobots_preprocess_node(&$vars) {
   $vars['classes_array'][] = 'post';
 
   // Change the theme function used for rendering the list of tags.
-  $vars['content']['field_tags']['#theme'] = 'links';
+  //$vars['content']['field_tags']['#theme'] = 'links';
 
   //dpm($vars['node']);
 
@@ -61,7 +88,7 @@ function ninesixtyrobots_preprocess_node(&$vars) {
     $vars['theme_hook_suggestions'][] = 'node__' . $today;
     $vars['day_of_the_week'] = $today;
 
-    //dpm($vars);
+    //dpm($today);
 
   }
 
@@ -83,7 +110,13 @@ function ninesixtyrobots_preprocess_page(&$vars) {
       $query = theme_get_setting('twitter_search_term');
       $query = drupal_encode_path($query);
 
-      $response = drupal_http_request('http://search.twitter.com/search.json?q=' . $query);
+      /*$response = drupal_http_request('http://search.twitter.com/search.json?q=' . $query);*/
+
+      $response = drupal_http_request('https://twitter.com/search?q=' . $query);
+
+
+      //    https://api.twitter.com/1.1/search/tweets.json?q=
+
 
       if ($response->code == 200) {
         $data = json_decode($response->data);
@@ -100,7 +133,7 @@ function ninesixtyrobots_preprocess_page(&$vars) {
     }
   }
 
-  // PLAYING WITH SLOGAN
+/*  // PLAYING WITH SLOGAN
   $slogans = array(
     t("WOWSER"),
     t("SUP SUP"),
@@ -108,20 +141,18 @@ function ninesixtyrobots_preprocess_page(&$vars) {
     t("OPS DOPS"),
     t("SLOOOOOOOOOOGAAAAAAAAAAAN"),
   );
- $slogan = $slogans[array_rand($slogans)];
-
-  // ADD NEW VARIABLE
+ $slogan = $slogans[array_rand($slogans)];*/
 
   if($vars['logged_in']) {
 
-    $vars['site_slogan'] = t($slogan . "  what's happening @username ", array('@username' => strtoupper($vars['user']->name)));
-
+   /* $vars['site_slogan'] = t($slogan . "  what's happening @username ", array('@username' => strtoupper($vars['user']->name)));*/
+// ADD NEW VARIABLE
     $vars['footer_message'] = t("WHO, WHO LOVES YOU @usermail", array('@usermail' => strtoupper($vars['user']->mail) ));
 
    /* dpm($vars);*/
   } else {
 
-    $vars['site_slogan'] = $slogan;
+    /*$vars['site_slogan'] = $slogan;*/
 
     $vars['footer_message'] = t("YOU ARE LOGGED OUT! ");
   }
@@ -177,4 +208,53 @@ function ninesixtyrobots_form_search_block_form_alter(&$form, &$form_state) {
   $form['actions']['submit']['#type'] = 'image_button';
   $form['actions']['submit']['#src'] = drupal_get_path('theme', 'ninesixtyrobots') . '/images/search.png';
   $form['actions']['submit']['#attributes']['class'][] = 'btn';
+
+
+/*// WATCHDOG LOG
+  watchdog('cg_volunteer', 'cg form_alter has run %formly', array('%formly' => $form['#id']), WATCHDOG_NOTICE, $link = NULL);*/
+
 }
+
+/**
+ * @param $variables
+ * @return string
+ * Implement function theme_field()
+ */
+// Change the theme function used for rendering the list of tags.
+function ninesixtyrobots_field__field_tags($variables) {
+  $output = '';
+
+  //dpm($variables);
+
+  $links = array();
+  foreach ($variables['items'] as $delta => $item) {
+    //$item['#options']['attributes'] += $variables['item_attributes_array'][$delta];
+
+    $item['#options']['attributes'] += array('rel' => 'lightbox');
+
+    $links[] = drupal_render($item);
+  }
+  $output .= implode('<span class="tag-divider">|</span>', $links);
+
+  return $output;
+}
+
+/**
+ * Implement hook_page_alter()
+ */
+function ninesixtyrobots_page_alter(&$page) {
+
+
+  if (arg(0) == 'node' && is_numeric(arg(1))) {
+    $nid = arg(1);
+    $image = $page['content']['system_main']['nodes'][$nid]['field_image'];
+
+    array_unshift($page['right'], array('side_image' => $image));
+    unset($page['content']['system_main']['nodes'][$nid]['field_image']);
+
+  }
+
+}
+
+
+

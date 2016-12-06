@@ -742,7 +742,8 @@ div.dateblock span.year {
   border: none;
 }
 
-.terms a {
+.terms a,
+.tag-divider{
   margin-right: 10px;
 }
 

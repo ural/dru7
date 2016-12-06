@@ -20,7 +20,7 @@ function demo2_node_view($node, $view_mode = 'full') {
     //add another to the session
     $_SESSION['node_views'][$node->nid]++;
 
-    #krumo('After: '.$_SESSION['node_views'][$node->nid]);
+    #dpm('After: '.$_SESSION['node_views'][$node->nid]);
 
 
     // Set up an array of placeholders to pass to t().
