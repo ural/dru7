@@ -1,6 +1,10 @@
 // FONT FAMILY
 $font : 'Roboto', sans-serif;
-html {
-  font-family: $font;
-  font-size:100%;
-}
+
+$body-bg: #ddd;
+
+// Articles
+$articla_padd: 20px;
+$articla_marg: 20px 0 0;
+
+
