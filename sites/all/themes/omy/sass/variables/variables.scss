@@ -12,3 +12,11 @@ $link_no_decor: none;
 $link_color: #681d64;
 
 
+// MIXINS
+@mixin h2_header {
+  font: {
+    size: 2rem;
+    weight: 600;
+    family: "Arial";
+  }
+}

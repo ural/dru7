@@ -6,4 +6,5 @@ sites/*/files
 sites/*/private
 
 .idea
+.idea/*
 .idea/workspace.xml
