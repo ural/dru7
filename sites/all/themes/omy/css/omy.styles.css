@@ -9,4 +9,18 @@ html, body {
 body {
   background-color: #ddd; }
 
+a:link,
+a:visited {
+  text-decoration: none;
+  color: #681d64; }
+
+a:hover {
+  color: #4e3a69; }
+
+article {
+  padding: 20px;
+  margin: 20px 0 0; }
+  article h2 {
+    font-size: 2rem; }
+
 /*# sourceMappingURL=omy.styles.css.map */

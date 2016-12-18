@@ -11,3 +11,23 @@ html, body  {
 body {
   background-color: $body-bg;
 }
+a:link,
+a:visited {
+  text-decoration: $link_no_decor;
+  color: $link_color;
+}
+a:hover {
+  color: #4e3a69;
+}
+
+
+article {
+  padding: $articla_padd;
+  margin: $articla_marg;
+
+  h2 {
+    font-size: 2rem;
+  }
+
+}
+
