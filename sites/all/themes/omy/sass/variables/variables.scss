@@ -13,9 +13,9 @@ $link_color: #681d64;
 
 
 // MIXINS
-@mixin h2_header {
+@mixin h_header($font-size) {
   font: {
-    size: 2rem;
+    size: $font-size;
     weight: 600;
     family: "Arial";
   }

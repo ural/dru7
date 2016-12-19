@@ -20,14 +20,13 @@ a:hover {
   color: #4e3a69;
 }
 
-
+// Articles*/
 article {
   padding: $articla_padd;
   margin: $articla_marg;
 
   h2 {
-    @include h2_header;
+    @include h_header(2rem);
   }
-
 }
 
