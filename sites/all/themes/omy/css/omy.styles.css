@@ -9,13 +9,11 @@ html, body {
 body {
   background-color: #ddd; }
 
-a:link,
-a:visited {
+a {
   text-decoration: none;
   color: #681d64; }
-
-a:hover {
-  color: #4e3a69; }
+  a:hover {
+    color: #1d6821; }
 
 article {
   padding: 20px;
@@ -24,5 +22,12 @@ article {
     font-size: 2rem;
     font-weight: 600;
     font-family: "Arial"; }
+  article .node__content strong {
+    background-color: #eaeaea; }
+    article .node__content strong em {
+      background-color: white;
+      padding: 2px;
+      border: 1px solid;
+      color: #90288a; }
 
 /*# sourceMappingURL=omy.styles.css.map */

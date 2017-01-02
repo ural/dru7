@@ -11,13 +11,12 @@ html, body  {
 body {
   background-color: $body-bg;
 }
-a:link,
-a:visited {
+a {
   text-decoration: $link_no_decor;
   color: $link_color;
-}
-a:hover {
-  color: #4e3a69;
+    &:hover {
+      color: complement($link_color);
+    }
 }
 
 // Articles*/
@@ -28,5 +27,19 @@ article {
   h2 {
     @include h_header(2rem);
   }
+
+  .node__content {
+    strong {
+      background-color: lighten($body-bg, 5);
+      em {
+        background-color: lighten($body-bg, 50);
+        padding: 2px;
+        border: 1px solid ;
+        color: lighten($link_color, 10);
+      }
+    }
+  }
+
+
 }
 
