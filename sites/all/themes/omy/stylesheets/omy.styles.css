@@ -1,0 +1,51 @@
+/* line 1, ../sass/base/base.scss */
+html, body {
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  font-size: 100%;
+}
+
+/* line 6, ../sass/base/base.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 11, ../sass/base/base.scss */
+body {
+  background-color: #ddd;
+}
+
+/* line 14, ../sass/base/base.scss */
+a {
+  text-decoration: none;
+  color: #681d64;
+}
+/* line 17, ../sass/base/base.scss */
+a:hover {
+  color: #5e5e5e;
+}
+
+/* line 24, ../sass/base/base.scss */
+article {
+  padding: 20px;
+  margin: 20px 0 0;
+}
+/* line 28, ../sass/base/base.scss */
+article h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  font-family: "Arial";
+}
+/* line 33, ../sass/base/base.scss */
+article .node__content strong {
+  background-color: #eaeaea;
+}
+/* line 35, ../sass/base/base.scss */
+article .node__content strong em {
+  background-color: white;
+  padding: 2px;
+  border: 1px solid;
+  color: #90288a;
+}

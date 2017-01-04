@@ -15,7 +15,8 @@ a {
   text-decoration: $link_no_decor;
   color: $link_color;
     &:hover {
-      color: complement($link_color);
+      color: darken($body-bg, 50);
+     // color: red;
     }
 }
 
@@ -40,6 +41,7 @@ article {
     }
   }
 
-
 }
+
+
 
