@@ -1,8 +1,10 @@
 <?php
 
+/**
+ * @file
+ */
 
-
-/*
+/**
  * Implement hook_menu()
  */
 function demo_menu() {
@@ -10,7 +12,7 @@ function demo_menu() {
   $items['admin/form-fun/password'] = array(
     'title' => 'Bad Passwords List',
     'description' => t('Configure a list of passwords that aren\'t allowed'),
-    'page callback'=> 'drupal_get_form',
+    'page callback' => 'drupal_get_form',
     'page arguments' => array('demo_passwords_form'),
     'access arguments' => array('administer site configuration'),
     'file' => 'demo_passwords_form.inc',
@@ -20,13 +22,12 @@ function demo_menu() {
   return $items;
 }
 
-/*
+/**
  * Implements hook_form_alter().
  */
 function demo_form_alter(&$form, &$form_state, $form_id) {
-   //dpm($form_id);
-
-  switch ($form_id){
+  // dpm($form_id);
+  switch ($form_id) {
     case 'user_profile_form':
       $form['account']['pass']['#description'] = t('To change the current user password, enter the NEW pass');
       $form['#validate'][] = 'demo_validate_password';
@@ -35,45 +36,24 @@ function demo_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
-/*
+/**
  * Implement hook_form_FORM_IM_alter()
  */
 function demo_form_user_register_form_alter(&$form, &$form_state, $form_id) {
   $form['account']['pass']['#description'] = t('To change the current user password, enter the NEW pass');
   $form['#validate'][] = 'demo_validate_password';
-//dpm($form);
+  // dpm($form);
 }
 
-/*
- * Custom password validation
+/**
+ * Custom password validation.
  */
 function demo_validate_password($form, &$form_state) {
   $badpasswords = variable_get('demo_badpasswords');
-  $badpasswords_array = explode(', ', $badpasswords); // in_array expects an array not strings as provided by $badpasswords
-  //dpm($badpasswords);
-  if(in_array($form_state['values']['pass'], $badpasswords_array)) {
+  // in_array expects an array not strings as provided by $badpasswords.
+  $badpasswords_array = explode(', ', $badpasswords);
+  // dpm($badpasswords);
+  if (in_array($form_state['values']['pass'], $badpasswords_array)) {
     form_set_error('pass', t('Please use a more secure password'));
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
