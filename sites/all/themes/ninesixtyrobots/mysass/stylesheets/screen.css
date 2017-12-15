@@ -2,72 +2,256 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 5, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-size: 100%;
-  vertical-align: baseline;
-}
-
-/* line 22, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-html {
-  line-height: 1;
-}
-
-/* line 24, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-ol, ul {
-  list-style: none;
-}
-
-/* line 26, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-/* line 28, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-caption, th, td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-/* line 30, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q, blockquote {
-  quotes: none;
-}
-/* line 103, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q:before, q:after, blockquote:before, blockquote:after {
-  content: "";
-  content: none;
-}
-
-/* line 32, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-a img {
-  border: none;
-}
-
-/* line 116, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
-  display: block;
-}
-
-/* line 9, ../sass/screen.scss */
 * {
   box-sizing: border-box;
+}
+
+#vert-cntr #vertical-center {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 50%;
+  /*
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  */
+  -webkit-flex-flow: column wrap;
+  -moz-flex-flow: column wrap;
+  -ms-flex-flow: column wrap;
+  flex-flow: column wrap;
+  border: 2px solid #09f;
+}
+#vert-cntr #vertical-center li {
+  border: 1px dotted #ff9900;
+  background-color: #eee;
+  padding: 10px;
+}
+
+#flexible {
+  margin: 1rem auto;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 90%;
+  -webkit-flex-flow: row wrap;
+  -moz-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  border: 2px solid #f90;
+}
+#flexible li {
+  -webkit-flex: 1 1 auto;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  -o-flex: 1 1 auto;
+  flex: 1 1 auto;
+  /*
+  -webkit-flex: 1 1 100px;
+  -moz-flex: 1 1 100px;
+  -ms-flex: 1 1 100px;
+  -o-flex: 1 1 100px;
+  flex: 1 1 100px;
+  */
+  text-align: center;
+  border: 1px dotted green;
+  background-color: #eee;
+  padding: 8px;
+}
+
+#reorder {
+  margin: 1rem auto;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 90%;
+  height: 500px;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: justify;
+  justify-content: space-around;
+  /*
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  */
+  -webkit-flex-flow: row wrap;
+  -moz-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  border: 2px solid #90f;
+}
+#reorder li {
+  -webkit-flex: 1 1 auto;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  -o-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: center;
+  border: 1px dotted green;
+  background-color: #eee;
+  padding: 8px;
+}
+
+#lay-you-out {
+  margin: 1rem auto;
+  border: 1px groove #ff9900;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 50%;
+  height: 500px;
+  -webkit-flex-flow: row wrap;
+  -moz-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  /*
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: justify;
+  justify-content: space-around;
+  */
+  -webkit-align-content: space-around;
+  -ms-flex-line-pack: space-around;
+  align-content: space-around;
+  /*
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: justify;
+  justify-content: space-around;
+
+  */
+  /*
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  */
+}
+#lay-you-out article {
+  border: 1px solid #014fbe;
+  margin: 10px 10px 0;
+  padding: 10px;
+}
+
+#layme-out #layout {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -moz-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+}
+#layme-out #layout header {
+  margin: 16px 0;
+  padding: 14px;
+  border: 1px solid #666;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -moz-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  -wekit-flex: 1 0 100%;
+  -ms-flex: 1 0 100%;
+  flex: 1 0 100%;
+}
+#layme-out #layout header h1 {
+  -moz-flex: 1 0 100%;
+  -ms-flex: 1 0 100%;
+  -o-flex: 1 0 100%;
+  -webkit-flex: 1 0 100%;
+  flex: 1 0 100%;
+}
+#layme-out #layout header nav {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -moz-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  /*
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: justify;
+  justify-content: space-around;
+  */
+  -moz-flex: 1 0 100%;
+  -ms-flex: 1 0 100%;
+  -o-flex: 1 0 100%;
+  -webkit-flex: 1 0 100%;
+  flex: 1 0 100%;
+}
+#layme-out #layout header nav ul {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -moz-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+          /*
+          -webkit-justify-content: space-around;
+          -ms-flex-pack: justify;
+          justify-content: space-around;
+
+          */
+  -moz-flex: 1 0 100%;
+  -ms-flex: 1 0 100%;
+  -o-flex: 1 0 100%;
+  -webkit-flex: 1 0 100%;
+  flex: 1 0 100%;
+}
+#layme-out #layout header nav ul li {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  text-align: center;
+}
+#layme-out #layout aside {
+  background: #f90;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 30%;
+  /*
+  -moz-flex: 1 0 38%;
+  -ms-flex: 1 0 38%;
+  -o-flex: 1 0 38%;
+  -webkit-flex: 1 0 38%;
+  flex: 1 0 38%;
+  */
+  /*
+  -webkit-align-self: flex-start;
+  -moz-align-self: flex-start;
+  -ms-align-self: flex-start;
+  align-self: flex-start;
+  */
+}
+#layme-out #layout #content {
+  background: #09f;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 68%;
+  /*
+  -moz-flex: 1 0 68%;
+  -ms-flex: 1 0 68%;
+  -o-flex: 1 0 68%;
+  -webkit-flex: 1 0 68%;
+  flex: 1 0 68%;
+  */
+  -webkit-flex-flow: column wrap;
+  -moz-flex-flow: column wrap;
+  -ms-flex-flow: column wrap;
+  /*
+  -webkit-align-self: flex-end;
+  -moz-align-self: flex-end;
+  -ms-align-self: flex-end;
+  align-self: flex-end;
+  */
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: justify;
+  justify-content: space-around;
 }

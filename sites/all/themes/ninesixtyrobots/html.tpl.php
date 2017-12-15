@@ -45,6 +45,7 @@
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
   "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language; ?>" version="XHTML+RDFa 1.0" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>>
+<link href="sites/all/themes/ninesixtyrobots/mysass/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
 <head profile="<?php print $grddl_profile; ?>">
   <?php print $head; ?>
@@ -61,11 +62,11 @@
   <?php print $page_bottom; ?>
 
   <!--<script src="sites/all/themes/ninesixtyrobots/node_modules/jquery/dist/jquery.min.js"></script>-->
-  <script src="sites/all/themes/ninesixtyrobots/node_modules/what-input/dist/what-input.min.js"></script>
+<!--  <script src="sites/all/themes/ninesixtyrobots/node_modules/what-input/dist/what-input.min.js"></script>
   <script src="sites/all/themes/ninesixtyrobots/node_modules/foundation-sites/dist/js/foundation.min.js"></script>
   <script>
       $(document).foundation();
   </script>
-
+-->
 </body>
 </html>
