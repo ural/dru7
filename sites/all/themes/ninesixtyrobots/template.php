@@ -1,10 +1,13 @@
 <?php
 
 /**
+ * @file
+ */
+
+/**
  * Implmentation of hook_theme().
  */
 function ninesixtyrobots_theme() {
-
 
   // Add our own function to override the default comment form.
   return array(
@@ -21,23 +24,20 @@ function ninesixtyrobots_theme() {
 
 /**
  * @param  $variables
- *  Commnets Form author, Subject and Format fields
+ *   Commnets Form author, Subject and Format fields
  */
 function ninesixtyrobots_comment_form($variables) {
-//dsm($variables);
-
+  // dsm($variables);
   $author = '<div class="grid_5 alpha">' . drupal_render($variables['form']['author']) . '</div>';
   $subject = '<div class="grid_5 alpha">' . drupal_render($variables['form']['subject']) . '</div>';
-  // hide text format field
+  // Hide text format field.
   hide($variables['form']['comment_body']['und'][0]['format']);
 
   $everything_else = drupal_render_children($variables['form']);
 
   return $author . $subject . $everything_else;
 
-
 }
-
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -78,33 +78,28 @@ function ninesixtyrobots_preprocess_node(&$vars) {
   $vars['classes_array'][] = 'post';
 
   // Change the theme function used for rendering the list of tags.
-  //$vars['content']['field_tags']['#theme'] = 'links';
-
-  //dpm($vars['node']);
-
-  // DINAMIC TEMPLATES WITH theme_hook_suggerstions
-  if($vars["type"] == "page") {
-  $today = strtolower(date('l'));
+  // $vars['content']['field_tags']['#theme'] = 'links';
+  // dpm($vars['node']);
+  // DINAMIC TEMPLATES WITH theme_hook_suggerstions.
+  if ($vars["type"] == "page") {
+    $today = strtolower(date('l'));
     $vars['theme_hook_suggestions'][] = 'node__' . $today;
     $vars['day_of_the_week'] = $today;
 
-    //dpm($today);
-
+    // dpm($today);
   }
 
-  //dpm($vars);
-
-  // theme_hook_suggerstions
-  if($vars["type"] == "raw") {
+  // dpm($vars);
+  // theme_hook_suggerstions.
+  if ($vars["type"] == "raw") {
 
     $vars['theme_hook_suggestions'][] = 'page__raw';
   }
 
-
 }
 
 /**
- * Add custom PHPTemplate variable into the page template
+ * Add custom PHPTemplate variable into the page template.
  */
 function ninesixtyrobots_preprocess_page(&$vars) {
   // Check if the theme is using Twitter.
@@ -123,10 +118,7 @@ function ninesixtyrobots_preprocess_page(&$vars) {
 
       $response = drupal_http_request('https://twitter.com/search?q=' . $query);
 
-
-      //    https://api.twitter.com/1.1/search/tweets.json?q=
-
-
+      // https://api.twitter.com/1.1/search/tweets.json?q=
       if ($response->code == 200) {
         $data = json_decode($response->data);
         // Set a 5 minute cache on retrieving tweets.
@@ -142,38 +134,38 @@ function ninesixtyrobots_preprocess_page(&$vars) {
     }
   }
 
-/*  // PLAYING WITH SLOGAN
+  /*  // PLAYING WITH SLOGAN
   $slogans = array(
-    t("WOWSER"),
-    t("SUP SUP"),
-    t("ANOTHER SLOGAN"),
-    t("OPS DOPS"),
-    t("SLOOOOOOOOOOGAAAAAAAAAAAN"),
+  t("WOWSER"),
+  t("SUP SUP"),
+  t("ANOTHER SLOGAN"),
+  t("OPS DOPS"),
+  t("SLOOOOOOOOOOGAAAAAAAAAAAN"),
   );
- $slogan = $slogans[array_rand($slogans)];*/
+  $slogan = $slogans[array_rand($slogans)];*/
 
-  if($vars['logged_in']) {
+  if ($vars['logged_in']) {
 
-   /* $vars['site_slogan'] = t($slogan . "  what's happening @username ", array('@username' => strtoupper($vars['user']->name)));*/
-// ADD NEW VARIABLE
-    $vars['footer_message'] = t("WHO, WHO LOVES YOU @usermail", array('@usermail' => strtoupper($vars['user']->mail) ));
+    /* $vars['site_slogan'] = t($slogan . "  what's happening @username ", array('@username' => strtoupper($vars['user']->name)));*/
+    // ADD NEW VARIABLE.
+    $vars['footer_message'] = t("WHO, WHO LOVES YOU @usermail", array('@usermail' => strtoupper($vars['user']->mail)));
 
-   /* dpm($vars);*/
-  } else {
+    /* dpm($vars);*/
+  }
+  else {
 
     /*$vars['site_slogan'] = $slogan;*/
 
     $vars['footer_message'] = t("YOU ARE LOGGED OUT! ");
   }
-// ADDING CUSTOM CSS & JS
-if($vars['is_front'] == TRUE) {
-  drupal_add_css(path_to_theme() . '/css/front.css', array('group' => CSS_THEME));
+  // ADDING CUSTOM CSS & JS.
+  if ($vars['is_front'] == TRUE) {
+    drupal_add_css(path_to_theme() . '/css/front.css', array('group' => CSS_THEME));
 
-  drupal_add_js(path_to_theme() . '/js/custom.js', array('group' => JS_THEME));
-}
+    drupal_add_js(path_to_theme() . '/js/custom.js', array('group' => JS_THEME));
+  }
 
-//dpm($vars);
-
+  // dpm($vars);
 }
 
 /**
@@ -194,7 +186,7 @@ function ninesixtyrobots_breadcrumb($variables) {
 /**
  * Preprocess function for theme_username().
  *
- * Override the username display to automatically swap out username for a 
+ * Override the username display to automatically swap out username for a
  * field called real_name, if it exists.
  */
 function ninesixtyrobots_preprocess_username(&$variables) {
@@ -218,8 +210,7 @@ function ninesixtyrobots_form_search_block_form_alter(&$form, &$form_state) {
   $form['actions']['submit']['#src'] = drupal_get_path('theme', 'ninesixtyrobots') . '/images/search.png';
   $form['actions']['submit']['#attributes']['class'][] = 'btn';
 
-
-/*// WATCHDOG LOG
+  /*// WATCHDOG LOG
   watchdog('cg_volunteer', 'cg form_alter has run %formly', array('%formly' => $form['#id']), WATCHDOG_NOTICE, $link = NULL);*/
 
 }
@@ -229,16 +220,17 @@ function ninesixtyrobots_form_search_block_form_alter(&$form, &$form_state) {
  * @return string
  * Implement function theme_field()
  */
-// Change the theme function used for rendering the list of tags.
+
+/**
+ * Change the theme function used for rendering the list of tags.
+ */
 function ninesixtyrobots_field__field_tags($variables) {
   $output = '';
 
-  //dpm($variables);
-
+  // dpm($variables);
   $links = array();
   foreach ($variables['items'] as $delta => $item) {
-    //$item['#options']['attributes'] += $variables['item_attributes_array'][$delta];
-
+    // $item['#options']['attributes'] += $variables['item_attributes_array'][$delta];.
     $item['#options']['attributes'] += array('rel' => 'lightbox');
 
     $links[] = drupal_render($item);
@@ -253,7 +245,6 @@ function ninesixtyrobots_field__field_tags($variables) {
  */
 function ninesixtyrobots_page_alter(&$page) {
 
-
   if (arg(0) == 'node' && is_numeric(arg(1))) {
     $nid = arg(1);
     $image = $page['content']['system_main']['nodes'][$nid]['field_image'];
@@ -266,10 +257,7 @@ function ninesixtyrobots_page_alter(&$page) {
 
 /*function ninesixtyrobots_css_alter(&$css) {
 
-  dpm($css);
+dpm($css);
 
-  unset($css['sites/all/themes/ninesixtyrobots/css/main.css']);
+unset($css['sites/all/themes/ninesixtyrobots/css/main.css']);
 }*/
-
-
-

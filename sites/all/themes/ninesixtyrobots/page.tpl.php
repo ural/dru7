@@ -1,3 +1,9 @@
+<?php
+
+/**
+ * @file
+ */
+?>
     <!-- header starts-->
     <div id="header-wrap">
       <div id="header" class="container_16">
@@ -15,7 +21,7 @@
             'heading' => array(
               'text' => t('Main menu'),
               'level' => 'h2',
-              'class' => array('element-invisible'),
+              'class' => array('element-invisible', 'to-be-removed'),
             ),
           )); ?>
         </div>
@@ -34,12 +40,17 @@
           
       
         <?php print render($title_prefix); ?>
-        <?php if (!empty($title)): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?>
+        <?php if (!empty($title)): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php
+        endif; ?>
         <?php print render($title_suffix); ?>
-        <?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
-        <?php if (!empty($messages)): print $messages; endif; ?>
-        <?php if (!empty($page['help'])): print render($page['help']); endif; ?>
-        <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
+        <?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php
+        endif; ?>
+        <?php if (!empty($messages)): print $messages;
+        endif; ?>
+        <?php if (!empty($page['help'])): print render($page['help']);
+        endif; ?>
+        <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php
+        endif; ?>
         
         <div id="content-output"> 
           <?php print render($page['content']); ?>
@@ -116,7 +127,7 @@
                 ),
               )); ?>
               </div> <!-- /#secondary-menu -->
-            <?php endif; ?>
+          <?php endif; ?>
         </div>
 
         <?php if ($page['footer']): ?>

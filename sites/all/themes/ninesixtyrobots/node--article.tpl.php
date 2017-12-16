@@ -1,3 +1,9 @@
+<?php
+
+/**
+ * @file
+ */
+?>
 
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -48,7 +54,7 @@
     <div class="link-wrapper postmeta">
       <?php print $links; ?>
     </div>
-  <?php endif; ?>
+    <?php endif; ?>
 
   <?php print render($content['comments']); ?>
 
