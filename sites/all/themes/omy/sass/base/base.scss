@@ -15,7 +15,8 @@ a {
   text-decoration: $link_no_decor;
   color: $link_color;
     &:hover {
-      color: darken($body-bg, 50);
+      /*color: darken(#09f, 50);*/
+      color: #09f;
      // color: red;
     }
 }
