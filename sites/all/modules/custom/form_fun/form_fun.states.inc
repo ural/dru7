@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @file
+ */
+
+/**
+ *
+ */
 function form_fun_states($form_state) {
 
   $form = array();
@@ -9,7 +16,7 @@ function form_fun_states($form_state) {
     '#title' => t('My Name'),
   );
 
-  // Use of #states FAPI property
+  // Use of #states FAPI property.
   $form['status'] = array(
     '#type' => 'checkbox',
     '#title' => t('I have a PARDNER'),
@@ -17,7 +24,8 @@ function form_fun_states($form_state) {
   // THE CONTAINER element type is useful for combining multiple elements' states at once.
   $form['partner'] = array(
     '#type' => 'container',
-    '#states' => array(  // #states property !!!
+  // #states property !!!
+    '#states' => array(
       'visible' => array(
         ':input[name="status"]' => array('checked' => TRUE),
       ),
@@ -39,4 +47,3 @@ function form_fun_states($form_state) {
   );
   return $form;
 }
-

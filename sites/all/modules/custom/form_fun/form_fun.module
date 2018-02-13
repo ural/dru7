@@ -1,9 +1,16 @@
 <?php
 
+/**
+ * @file
+ */
+
+/**
+ *
+ */
 function form_fun_menu() {
   $items = array();
 
-  //Cake or pie
+  // Cake or pie.
   $items['admin/form-fun'] = array(
     'title' => 'Form Fun',
     'page callback' => 'form_fun_page',
@@ -13,7 +20,7 @@ function form_fun_menu() {
     'weight' => -15,
   );
 
-  // with "#tree" parameter
+  // With "#tree" parameter.
   $items['admin/form-fun/tree'] = array(
     'title' => 'I am lost',
     'page callback' => 'drupal_get_form',
@@ -24,7 +31,7 @@ function form_fun_menu() {
     'weight' => 1,
   );
 
-  // demonstration of form states
+  // Demonstration of form states.
   $items['admin/form-fun/states'] = array(
     'title' => 'FORM STATES',
     'page callback' => 'drupal_get_form',
@@ -34,8 +41,6 @@ function form_fun_menu() {
     'type' => MENU_NORMAL_ITEM,
     'weight' => 2,
   );
-
-
 
   return $items;
 }

@@ -1,7 +1,11 @@
 <?php
 
-/*
- *Implement hook_schema().
+/**
+ * @file
+ */
+
+/**
+ * Implement hook_schema().
  */
 function demo2_schema() {
   $schema = array();
@@ -36,18 +40,9 @@ function demo2_schema() {
   return $schema;
 }
 
-/*
- *Implements hook_update_N().
+/**
+ * Implements hook_update_N().
  */
 function demo2_update_7000() {
   drupal_install_schema('demo2');
 }
-
-
-
-
-
-
-
-
-

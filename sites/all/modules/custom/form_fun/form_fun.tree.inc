@@ -1,10 +1,18 @@
 <?php
 
+/**
+ * @file
+ */
+
+/**
+ *
+ */
 function form_fun_tree($form_state) {
 
- $form = array();
+  $form = array();
 
-  $form['#tree'] = TRUE; // Prevent drupal from collapsing the form
+  // Prevent drupal from collapsing the form.
+  $form['#tree'] = TRUE;
 
   $form['home'] = array(
     '#type' => 'fieldset',
@@ -19,7 +27,7 @@ function form_fun_tree($form_state) {
     '#type' => 'textfield',
     '#title' => t('City'),
   );
-/////////\\\\\\\
+  // \\\\\\\.
   $form['work'] = array(
     '#type' => 'fieldset',
     '#title' => t('Work Address'),
@@ -41,6 +49,9 @@ function form_fun_tree($form_state) {
   return $form;
 }
 
+/**
+ *
+ */
 function form_fun_tree_submit($form, $form_state) {
   dsm($form_state);
 }

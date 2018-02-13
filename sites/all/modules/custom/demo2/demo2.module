@@ -1,28 +1,28 @@
 <?php
 
 /**
+ * @file
+ */
+
+/**
  * Implements hook_node_view().
  */
 function demo2_node_view($node, $view_mode = 'full') {
-  //only when looking at the full version, NOT the teaser
+  // Only when looking at the full version, NOT the teaser.
   if ($view_mode == 'full') {
 
     // Everytime a node is viewed, increment the node_views count
-    // in the user's session by one and include the result in the node content
-
-    //make sure there is a record in the session
+    // in the user's session by one and include the result in the node content.
+    // make sure there is a record in the session.
     if (empty($_SESSION['node_views'][$node->nid])) {
       $_SESSION['node_views'][$node->nid] = 0;
     }
-    
-    #dpm('Before: '.$_SESSION['node_views'][$node->nid]);
 
-    //add another to the session
+    // dpm('Before: '.$_SESSION['node_views'][$node->nid]);.
+    // Add another to the session.
     $_SESSION['node_views'][$node->nid]++;
 
-    #dpm('After: '.$_SESSION['node_views'][$node->nid]);
-
-
+    // dpm('After: '.$_SESSION['node_views'][$node->nid]);.
     // Set up an array of placeholders to pass to t().
     $t_args = array(
       '%num' => $_SESSION['node_views'][$node->nid],
@@ -34,8 +34,3 @@ function demo2_node_view($node, $view_mode = 'full') {
     );
   }
 }
-
-
-
-
-
