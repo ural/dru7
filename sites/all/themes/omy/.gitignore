@@ -1,6 +1,9 @@
 # Ignore the node modules folder (created by 'npm install').
 node_modules
 
+# Remove package-lock.json
+package-lock.json
+
 # We absolutely don't want to have the .sass-cache in git.
 .sass-cache
 
