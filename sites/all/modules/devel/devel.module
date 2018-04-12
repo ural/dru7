@@ -447,7 +447,11 @@ function devel_init() {
     if (flood_is_allowed('devel_rebuild_registry_warning', 1)) {
       flood_register_event('devel_rebuild_registry_warning');
       if (!devel_silent() && user_access('access devel information')) {
-        drupal_set_message(t('The theme registry is being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/config/development/devel'))));
+        drupal_set_message(t('The theme registry is being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array(
+          "!url" => url('admin/config/development/devel', array(
+            'fragment' => 'edit-devel-rebuild-theme-registry',
+          )),
+        )));
       }
     }
   }
@@ -1150,7 +1154,7 @@ function devel_shutdown_summary($queries) {
     $output .= t_safe(' Queries exceeding @threshold ms are <span class="marker">highlighted</span>.', array('@threshold' => variable_get('devel_execution', 5)));
   }
 
-  if (variable_get('dev_timer', 0)) {
+  if (variable_get('devel_timer', 0)) {
     $output .= devel_timer();
   }
 
