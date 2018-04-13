@@ -1,5 +1,4 @@
-#
-rts = function(grunt) {
+module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   var theme_name = 'bison';
@@ -95,7 +94,7 @@ rts = function(grunt) {
           'js/libs.min.js': [jsLibs],
           'js/foundation.min.js': [jsFoundation],
           'js/app.min.js': [jsApp]
-      }
+        }
       }
     },
 
@@ -124,4 +123,3 @@ rts = function(grunt) {
   grunt.registerTask('build', ['jshint','uglify','sass_globbing','sass']);
   grunt.registerTask('default', ['build', 'watch']);
 };
-
