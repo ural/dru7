@@ -1,4 +1,5 @@
-module.exports = function(grunt) {
+#
+rts = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   var theme_name = 'bison';
@@ -48,6 +49,20 @@ module.exports = function(grunt) {
   grunt.initConfig({
     global_vars: global_vars,
     pkg: grunt.file.readJSON('package.json'),
+
+    sass_globbing: {
+      my_target: {
+        files: {
+          'scss/_layoutMap.scss': 'scss/layout/**/*.scss',
+          'scss/_modulesMap.scss': 'scss/modules/**/*.scss',
+          'scss/_statesMap.scss': 'scss/states/**/*.scss',
+          'scss/_themeMap.scss': 'scss/theme/**/*.scss',
+        },
+        options: {
+          useSingleQuotes: false,
+        }
+      }
+    },
 
     sass: {
       dist: {
@@ -106,6 +121,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('build', ['jshint','uglify','sass']);
+  grunt.registerTask('build', ['jshint','uglify','sass_globbing','sass']);
   grunt.registerTask('default', ['build', 'watch']);
 };
+
