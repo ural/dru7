@@ -2,18 +2,21 @@
   "name": "bison",
   "version": "0.0.2",
   "devDependencies": {
-    "node-sass": "*",
     "grunt": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-sass": "*",
-    "grunt-drush": "*",
-    "grunt-sass-globbing": "*",
-    "node-bourbon": "*",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-uglify": "*",
-    "load-grunt-tasks": "*"
+    "grunt-contrib-watch": "*",
+    "grunt-drush": "*",
+    "grunt-sass": "*",
+    "grunt-sass-globbing": "*",
+    "load-grunt-tasks": "*",
+    "node-bourbon": "*",
+    "node-sass": "^4.8.3"
   },
   "scripts": {
     "postinstall": "find node_modules/ -name '*.info' -type f -delete"
+  },
+  "dependencies": {
+    "sass": "^1.1.1"
   }
 }
