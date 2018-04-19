@@ -1,0 +1,7 @@
+name = CCT
+description = Creates a custom content type
+version = 1.0
+core = 7.x
+
+files[] = cct.module
+files[] = cct.install

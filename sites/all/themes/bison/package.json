@@ -10,13 +10,13 @@
     "grunt-sass": "*",
     "grunt-sass-globbing": "*",
     "load-grunt-tasks": "*",
-    "node-bourbon": "*",
-    "node-sass": "^4.8.3"
+    "node-bourbon": "*"
   },
   "scripts": {
     "postinstall": "find node_modules/ -name '*.info' -type f -delete"
   },
   "dependencies": {
+    "node-sass": "^4.8.3",
     "sass": "^1.1.1"
   }
 }
