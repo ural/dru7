@@ -99,10 +99,14 @@
 // Layout
 // Each section of the document has it's own partial seperated out to improve
 // developer experience. Additionally, grids can be declared in layouts as well.
-@import "layout/header";
-@import "layout/main";
-@import "layout/aside";
-@import "layout/footer";
+// @import "layout/header"; <-- Don't need these  to be imported anymore
+// @import "layout/main";
+// @import "layout/aside";
+// @import "layout/footer";
+@import "layoutMap";
+@import "modulesMap";
+@import "statesMap";
+@import "themeMap";
 
 // Modules
 // @import "modules/block";

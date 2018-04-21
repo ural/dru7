@@ -7,7 +7,7 @@
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
     "grunt-drush": "*",
-    "grunt-sass": "*",
+    "grunt-sass": "^2.1.0",
     "grunt-sass-globbing": "*",
     "load-grunt-tasks": "*",
     "node-bourbon": "*"
