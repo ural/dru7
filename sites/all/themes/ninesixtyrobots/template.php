@@ -89,13 +89,13 @@ function ninesixtyrobots_preprocess_node(&$vars) {
     // dpm($today);
   }
 
-  // dpm($vars);
+
   // theme_hook_suggerstions.
   if ($vars["type"] == "raw") {
 
     $vars['theme_hook_suggestions'][] = 'page__raw';
   }
-
+  // dpm($vars);
 }
 
 /**
