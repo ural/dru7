@@ -5,5 +5,6 @@ sites/*/settings*.php
 sites/*/files
 sites/*/private
 
+# phpStorm config files
 .idea
-idea/*
+.idea/*
