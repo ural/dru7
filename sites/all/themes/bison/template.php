@@ -10,7 +10,7 @@ function bison_preprocess_html(&$variables) {
  * Implements template_preprocess_page.
  */
 function bison_preprocess_page(&$variables) {
-  dpm($variables);
+ // dpm($variables);
 }
 
 /**
