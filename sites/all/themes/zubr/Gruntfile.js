@@ -67,7 +67,7 @@ module.exports = function(grunt) {
       },
       all: [
         'Gruntfile.js',
-        jsApp
+         jsApp
       ]
     },
 
@@ -80,7 +80,7 @@ module.exports = function(grunt) {
           'js/libs.min.js': [jsLibs],
           'js/foundation.min.js': [jsFoundation],
           'js/app.min.js': [jsApp]
-      }
+        }
       }
     },
 

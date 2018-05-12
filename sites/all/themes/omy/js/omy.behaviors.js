@@ -62,27 +62,26 @@
   Drupal.behaviors.omyMyTest = {
     attach: function (context, settings) {
 
-     // alert("HOWDY");
+      console.log(settings);
+      var mysetting = settings.CUSTOM_SETTING = 'I GOT THIS !!!';
+      console.log(mysetting);
 
-/*
-      // By using the 'context' variable we make sure that our code only runs on
-      // the relevant HTML. Furthermore, by using jQuery.once() we make sure that
-      // we don't run the same piece of code for an HTML snippet that we already
-      // processed previously. By using .once('foo') all processed elements will
-      // get tagged with a 'foo-processed' class, causing all future invocations
-      // of this behavior to ignore them.
-      $('.some-selector', context).once('foo', function () {
-        // Now, we are invoking the previously declared theme function using two
-        // settings as arguments.
-        var $anchor = Drupal.theme('omyExampleButton', settings.myExampleLinkPath, settings.myExampleLinkTitle);
-
-        // The anchor is then appended to the current element.
-        $anchor.appendTo(this);
-      });
-*/
+      var img_src = $(".group-header img").attr('src');
+      settings.imgSrc = img_src;
+      console.log(settings.imgSrc);
 
     }
   };
+
+  Drupal.attachBehaviors = function (context, settings) {
+    context = context || document;
+    settings = settings || Drupal.settings;
+
+    $.each(Drupal.behaviors, function () {
+      this.attach(context, settings);
+    });
+  }
+
 
 
 })(jQuery);

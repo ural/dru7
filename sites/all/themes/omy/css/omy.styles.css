@@ -13,7 +13,8 @@ a {
   text-decoration: none;
   color: #681d64; }
   a:hover {
-    color: #5e5e5e; }
+    /*color: darken(#09f, 50);*/
+    color: #f90; }
 
 article {
   padding: 20px;
