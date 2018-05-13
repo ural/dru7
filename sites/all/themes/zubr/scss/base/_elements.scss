@@ -9,21 +9,16 @@
 //------------------------------------------
  h1, h2, h3,
  h4, h5, h6 {
-   color: #f90;
-   font-weight: 900;
+   font-weight: 600;
  }
 
 // Anchors
 //-----------------------------------------------------------------------------
- a {
-   color: #f90 !important;
-   font-weight: 600;
- }
 
- .node-title {
-   color: #f90;
-   font-weight: 500;
- }
+   a {
+     color: #f90;
+     font-weight: 600;
+   }
 
 
 // a:focus {}
