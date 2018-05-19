@@ -3785,7 +3785,8 @@ function _drupal_shutdown_function() {
   chdir(DRUPAL_ROOT);
 
   try {
-    while (list($key, $callback) = each($callbacks)) {
+    foreach ($callbacks as $key => $callback) {
+
       call_user_func_array($callback['callback'], $callback['arguments']);
     }
   }

@@ -6914,7 +6914,7 @@ function drupal_common_theme() {
       'variables' => array('text' => NULL, 'path' => NULL, 'options' => array()),
     ),
     'links' => array(
-      'variables' => array('links' => NULL, 'attributes' => array('class' => array('links')), 'heading' => array()),
+      'variables' => array('links' => array(), 'attributes' => array('class' => array('links')), 'heading' => array()),
     ),
     'image' => array(
       // HTML 4 and XHTML 1.0 always require an alt attribute. The HTML 5 draft
@@ -6938,7 +6938,7 @@ function drupal_common_theme() {
       'variables' => array(),
     ),
     'table' => array(
-      'variables' => array('header' => NULL, 'rows' => NULL, 'attributes' => array(), 'caption' => NULL, 'colgroups' => array(), 'sticky' => TRUE, 'empty' => ''),
+      'variables' => array('header' => array(), 'rows' => array(), 'attributes' => array(), 'caption' => NULL, 'colgroups' => array(), 'sticky' => TRUE, 'empty' => ''),
     ),
     'tablesort_indicator' => array(
       'variables' => array('style' => NULL),
@@ -6982,7 +6982,7 @@ function drupal_common_theme() {
       'variables' => array('content' => NULL),
     ),
     'task_list' => array(
-      'variables' => array('items' => NULL, 'active' => NULL),
+      'variables' => array('items' => array(), 'active' => NULL),
     ),
     'authorize_message' => array(
       'variables' => array('message' => NULL, 'success' => TRUE),

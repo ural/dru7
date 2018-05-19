@@ -404,7 +404,7 @@ function module_enable($module_list, $enable_dependencies = TRUE) {
     // Create an associative array with weights as values.
     $module_list = array_flip(array_values($module_list));
 
-    while (list($module) = each($module_list)) {
+    foreach ($module_list as $module) {
       if (!isset($module_data[$module])) {
         // This module is not found in the filesystem, abort.
         return FALSE;
@@ -540,7 +540,7 @@ function module_disable($module_list, $disable_dependents = TRUE) {
     $module_list = array_flip(array_values($module_list));
 
     $profile = drupal_get_profile();
-    while (list($module) = each($module_list)) {
+    foreach ($module_list as $module) {
       if (!isset($module_data[$module]) || !$module_data[$module]->status) {
         // This module doesn't exist or is already disabled, skip it.
         unset($module_list[$module]);
