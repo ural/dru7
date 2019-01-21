@@ -768,12 +768,14 @@ function book_prev($book_link) {
     return NULL;
   }
   $flat = book_get_flat_menu($book_link);
-  foreach ($flat as $key => $curr) {
-    if ($key == $book_link['mlid']) {
-      break;
-    }
+  reset($flat);
+  $curr = NULL;
+  do {
     $prev = $curr;
-  }
+    $curr = current($flat);
+    $key = key($flat);
+    next($flat);
+  } while ($key && $key != $book_link['mlid']);
 
   if ($key == $book_link['mlid']) {
     // The previous page in the book may be a child of the previous visible link.
@@ -806,10 +808,15 @@ function book_prev($book_link) {
  */
 function book_next($book_link) {
   $flat = book_get_flat_menu($book_link);
-  foreach ($flat as $key => $curr) {
-    if ($key == $book_link['mlid']) {
-      return $curr;
-    }
+  reset($flat);
+  do {
+    $key = key($flat);
+    next($flat);
+  }
+  while ($key && $key != $book_link['mlid']);
+
+  if ($key == $book_link['mlid']) {
+    return current($flat);
   }
 }
 

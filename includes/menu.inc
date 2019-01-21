@@ -2403,7 +2403,6 @@ function menu_set_active_trail($new_trail = NULL) {
       // a stripped down menu tree containing the active trail only, in case
       // the given menu has not been built in this request yet.
       $tree = menu_tree_page_data($preferred_link['menu_name'], NULL, TRUE);
-      $key = key($tree);
       $curr = current($tree);
       next($tree);
     }
@@ -2435,7 +2434,6 @@ function menu_set_active_trail($new_trail = NULL) {
         }
         $tree = $curr['below'] ? $curr['below'] : array();
       }
-      $key = key($tree);
       $curr = current($tree);
       next($tree);
     }

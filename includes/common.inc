@@ -867,8 +867,10 @@ function drupal_http_request($url, array $options = array()) {
       // Make the socket connection to a proxy server.
       $socket = 'tcp://' . $proxy_server . ':' . variable_get('proxy_port', 8080);
       // The Host header still needs to match the real request.
-      $options['headers']['Host'] = $uri['host'];
-      $options['headers']['Host'] .= isset($uri['port']) && $uri['port'] != 80 ? ':' . $uri['port'] : '';
+      if (!isset($options['headers']['Host'])) {
+        $options['headers']['Host'] = $uri['host'];
+        $options['headers']['Host'] .= isset($uri['port']) && $uri['port'] != 80 ? ':' . $uri['port'] : '';
+      }
       break;
 
     case 'http':
@@ -878,14 +880,18 @@ function drupal_http_request($url, array $options = array()) {
       // RFC 2616: "non-standard ports MUST, default ports MAY be included".
       // We don't add the standard port to prevent from breaking rewrite rules
       // checking the host that do not take into account the port number.
-      $options['headers']['Host'] = $uri['host'] . ($port != 80 ? ':' . $port : '');
+      if (!isset($options['headers']['Host'])) {
+        $options['headers']['Host'] = $uri['host'] . ($port != 80 ? ':' . $port : '');
+      }
       break;
 
     case 'https':
       // Note: Only works when PHP is compiled with OpenSSL support.
       $port = isset($uri['port']) ? $uri['port'] : 443;
       $socket = 'ssl://' . $uri['host'] . ':' . $port;
-      $options['headers']['Host'] = $uri['host'] . ($port != 443 ? ':' . $port : '');
+      if (!isset($options['headers']['Host'])) {
+        $options['headers']['Host'] = $uri['host'] . ($port != 443 ? ':' . $port : '');
+      }
       break;
 
     default:
@@ -2311,7 +2317,10 @@ function url($path = NULL, array $options = array()) {
     $language = isset($options['language']) && isset($options['language']->language) ? $options['language']->language : '';
     $alias = drupal_get_path_alias($original_path, $language);
     if ($alias != $original_path) {
-      $path = $alias;
+      // Strip leading slashes from internal path aliases to prevent them
+      // becoming external URLs without protocol. /example.com should not be
+      // turned into //example.com.
+      $path = ltrim($alias, '/');
     }
   }
 
@@ -6914,7 +6923,7 @@ function drupal_common_theme() {
       'variables' => array('text' => NULL, 'path' => NULL, 'options' => array()),
     ),
     'links' => array(
-      'variables' => array('links' => array(), 'attributes' => array('class' => array('links')), 'heading' => array()),
+      'variables' => array('links' => NULL, 'attributes' => array('class' => array('links')), 'heading' => array()),
     ),
     'image' => array(
       // HTML 4 and XHTML 1.0 always require an alt attribute. The HTML 5 draft
@@ -6938,7 +6947,7 @@ function drupal_common_theme() {
       'variables' => array(),
     ),
     'table' => array(
-      'variables' => array('header' => array(), 'rows' => array(), 'attributes' => array(), 'caption' => NULL, 'colgroups' => array(), 'sticky' => TRUE, 'empty' => ''),
+      'variables' => array('header' => NULL, 'rows' => NULL, 'attributes' => array(), 'caption' => NULL, 'colgroups' => array(), 'sticky' => TRUE, 'empty' => ''),
     ),
     'tablesort_indicator' => array(
       'variables' => array('style' => NULL),
@@ -6982,7 +6991,7 @@ function drupal_common_theme() {
       'variables' => array('content' => NULL),
     ),
     'task_list' => array(
-      'variables' => array('items' => array(), 'active' => NULL),
+      'variables' => array('items' => NULL, 'active' => NULL),
     ),
     'authorize_message' => array(
       'variables' => array('message' => NULL, 'success' => TRUE),
